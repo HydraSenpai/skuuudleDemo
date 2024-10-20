@@ -1,3 +1,5 @@
 /venv
 /scrapy_spider/settings.py
 /scrapy_spider/settings
+/_pycache_
+/_pycache__
