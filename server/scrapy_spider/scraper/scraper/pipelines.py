@@ -79,6 +79,7 @@ class BookscraperPipeline:
 
 
 import mysql.connector
+import os
 
 class SaveToMySQLPipeline:
 
@@ -86,7 +87,8 @@ class SaveToMySQLPipeline:
         self.conn = mysql.connector.connect(
             host = 'localhost',
             user = 'root',
-            
+            password = os.environ.get("MYSQL_PASS"),
+            database = 'nicholasdatabase'
         )
 
     
