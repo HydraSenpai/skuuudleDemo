@@ -28,4 +28,10 @@ class PropertySpider(scrapy.Spider):
             }
               
             yield home_data
+            
+        next_page_relative = data['props']['pageProps']['results']['paginationControls']['next'].get('next-link', None)
      
+        if next_page_relative:
+            next_page_absolute = "https://www.onthemarket.com" + next_page_relative
+            yield response.follow(next_page_absolute, callback=self.parse)
+            
