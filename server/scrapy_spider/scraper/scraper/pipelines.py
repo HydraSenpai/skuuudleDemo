@@ -174,3 +174,101 @@ class SaveToMySQLPipelineBooks:
         ## Close cursor & connection to database 
         self.cur.close()
         self.conn.close()
+       
+       
+class PropertyscraperPipeline:
+    def process_item(self, item, spider):
+
+        adapter = ItemAdapter(item)
+        
+        ## Price --> convert to float
+        value = adapter.get('price')
+        if value:
+            value = value.replace('£', '')
+            value = value.replace(',', '')
+            adapter['price'] = float(value)
+        else:
+            adapter['price'] = 0
+
+        return item 
+class SaveToMySQLPipelineProperty:
+
+    def __init__(self):
+        self.conn = mysql.connector.connect(
+            host = 'localhost',
+            user = 'root',
+            password = os.environ.get("MYSQL_PASS"),
+            database = 'nicholasdatabase'
+        )
+
+    
+                
+        ## Create cursor, used to execute commands
+        self.cur = self.conn.cursor()
+
+        ## Create properties table if none exists
+        self.cur.execute("""
+        CREATE TABLE IF NOT EXISTS properties(
+            id int NOT NULL auto_increment, 
+            property_title VARCHAR(255),
+            price DECIMAL,
+            address VARCHAR(255),
+            bed_count INTEGER,
+            property_type VARCHAR(255),
+            longitude DECIMAL,
+            latitude DECIMAL,
+            agent_name VARCHAR(255),
+            agent_phone VARCHAR(15),
+            image_link VARCHAR(255),
+            PRIMARY KEY (id)
+        )
+        """)
+
+    def process_item(self, item, spider):
+
+        ## Define insert statement
+        self.cur.execute(""" insert into properties (
+            property_title,
+            price,
+            address,  
+            bed_count,
+            property_type,
+            longitude,
+            latitude,
+            agent_name,
+            agent_phone,
+            image_link
+            ) values (
+                %s,
+                %s,
+                %s,
+                %s,
+                %s,
+                %s,
+                %s,
+                %s,
+                %s,
+                %s
+                )""", (
+            item["property_title"],
+            item["price"],
+            item["address"],
+            item["bed_count"],
+            item["property_type"],
+            item["longitude"],
+            item["latitude"],
+            item["agent_name"],
+            item["agent_phone"],
+            item["image1"]
+        ))
+
+        # ## Execute insert of data into database
+        self.conn.commit()
+        return item
+
+    
+    def close_spider(self, spider):
+
+        ## Close cursor & connection to database 
+        self.cur.close()
+        self.conn.close()

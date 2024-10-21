@@ -152,8 +152,10 @@ class ScrapeOpsFakeBrowserHeaderAgentMiddleware:
             request.headers['sec-fetch-site'] = random_browser_header['sec-fetch-site'] 
         if 'sec-ch-ua-platform' in random_browser_header:
             request.headers['sec-ch-ua-platform'] = random_browser_header['sec-ch-ua-platform'] 
-        request.headers['sec-ch-ua-mobile'] = random_browser_header['sec-ch-ua-mobile'] 
-        request.headers['sec-ch-ua'] = random_browser_header['sec-ch-ua'] 
+        if 'sec-ch-ua-mobile' in random_browser_header:
+            request.headers['sec-ch-ua-mobile'] = random_browser_header['sec-ch-ua-mobile'] 
+        if 'sec-ch-ua' in random_browser_header:
+            request.headers['sec-ch-ua'] = random_browser_header['sec-ch-ua'] 
         request.headers['accept'] = random_browser_header['accept'] 
         request.headers['user-agent'] = random_browser_header['user-agent'] 
         request.headers['upgrade-insecure-requests'] = random_browser_header.get('upgrade-insecure-requests')

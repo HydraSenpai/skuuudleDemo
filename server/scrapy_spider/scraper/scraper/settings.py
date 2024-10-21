@@ -53,7 +53,7 @@ USER_AGENT = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTM
 # Enable or disable downloader middlewares
 # See https://docs.scrapy.org/en/latest/topics/downloader-middleware.html
 DOWNLOADER_MIDDLEWARES = {
-    'scraper.middlewares.ScrapeOpsFakeBrowserHeaderAgentMiddleware': 400,
+    'scraper.middlewares.ScrapeOpsFakeBrowserHeaderAgentMiddleware': 300,
 }
 # Enable or disable extensions
 # See https://docs.scrapy.org/en/latest/topics/extensions.html
@@ -65,7 +65,9 @@ DOWNLOADER_MIDDLEWARES = {
 # See https://docs.scrapy.org/en/latest/topics/item-pipeline.html
 ITEM_PIPELINES = {
 #    "scraper.pipelines.BookscraperPipeline": 200,
-    # 'scraper.pipelines.SaveToMySQLPipelineBooks': 300
+    # 'scraper.pipelines.SaveToMySQLPipelineBooks': 300,
+    'scraper.pipelines.PropertyscraperPipeline': 100,
+    'scraper.pipelines.SaveToMySQLPipelineProperty':400
 }
 
 # Enable and configure the AutoThrottle extension (disabled by default)

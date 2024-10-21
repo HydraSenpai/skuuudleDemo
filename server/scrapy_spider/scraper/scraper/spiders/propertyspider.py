@@ -17,6 +17,7 @@ class PropertySpider(scrapy.Spider):
         for property in property_data:
             home_data = {
                 "id" : property.get('id', None),
+                "property_title" : property.get('property-title', None),
                 "price" : property.get('price', None),
                 "address" : property.get('address', None),
                 "bed_count" : property.get('bedrooms', None),
@@ -25,13 +26,37 @@ class PropertySpider(scrapy.Spider):
                 "latitude" : property.get('location', {}).get('lat', None),
                 "agent_name" : property['agent'].get('name', None),
                 "agent_phone" : property['agent'].get('telephone', None),
+                "image1" : property.get("images", [{}])[0].get("default", None),
             }
               
             yield home_data
             
-        next_page_relative = data['props']['pageProps']['results']['paginationControls']['next'].get('next-link', None)
+        # next_page_relative = data.get('props', {}).get('pageProps', {}).get('results', {}).get('paginationControls', {}).get('next', {}).get('next-link', None)
+        
+        props = data.get('props')
+        if props is not None:
+            page_props = props.get('pageProps')
+            if page_props is not None:
+                results = page_props.get('results')
+                if results is not None:
+                    pagination_controls = results.get('paginationControls')
+                    if pagination_controls is not None:
+                        next_control = pagination_controls.get('next')
+                        if next_control is not None:
+                            next_page_relative = next_control.get('next-link', None)
+                        else:
+                            next_page_relative = None
+                    else:
+                        next_page_relative = None
+                else:
+                    next_page_relative = None
+            else:
+                next_page_relative = None
+        else:
+            next_page_relative = None
+
      
         if next_page_relative:
             next_page_absolute = "https://www.onthemarket.com" + next_page_relative
             yield response.follow(next_page_absolute, callback=self.parse)
-            
+             
