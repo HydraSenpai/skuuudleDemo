@@ -8,10 +8,13 @@ db = SQLAlchemy()
 
 def create_app():
     app = Flask(__name__, template_folder='templates')
-    uri = 'mysql+pymysql://root:' + os.environ.get("MYSQL_PASS") + 'password@localhost/nicholasdatabase'
+    uri = 'mysql+pymysql://root:' + os.environ.get("MYSQL_PASS") + '@localhost/nicholasdatabase'
     app.config['SQLALCHEMY_DATABASE_URI'] = uri
     
     db.init_app(app)
+    
+    from routes import register_routes
+    register_routes(app, db)
     
     migrate = Migrate(app, db)
     

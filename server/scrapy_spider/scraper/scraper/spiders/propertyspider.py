@@ -1,28 +1,31 @@
 import scrapy
+import json
 
 
 class PropertySpider(scrapy.Spider):
     name = "propertyspider"
-    allowed_domains = ["www.openrent.co.uk"]
-    start_urls = ["https://www.openrent.co.uk/properties-to-rent/manchester?term=Manchester&prices_min=100&prices_max=500"]
+    allowed_domains = ["www.onthemarket.com"]
+    start_urls = ["https://www.onthemarket.com/for-sale/property/manchester/?view=map-list"]
 
     def parse(self, response):
-        properties = response.css('div.listing-info')
+        properties = response.xpath('//script[@id="__NEXT_DATA__"]/text()').get()
         
-        minprice = 500
-        maxprice = 600
+        data = json.loads(properties)
         
-        for property in properties:
-              
-            yield {
-                'name': (property.css('div.ldc span::text').get()).strip(),
-                'price': (property.css('div.pim.pl-title h2::text').get()).strip(),
-                'distance': (property.css('div.ltc.pl-title h2::text').get()).strip(),
+        property_data = data['props']['pageProps']['results']['list']
+        
+        for property in property_data:
+            home_data = {
+                "id" : property.get('id', None),
+                "price" : property.get('price', None),
+                "address" : property.get('address', None),
+                "bed_count" : property.get('bedrooms', None),
+                "property_type" :property.get('humanised-property-type', None),
+                "longitude" : property.get('location', {}).get('lon', None),
+                "latitude" : property.get('location', {}).get('lat', None),
+                "agent_name" : property['agent'].get('name', None),
+                "agent_phone" : property['agent'].get('telephone', None),
             }
-        
-        if maxprice < 10000:
-            minprice += 100
-            maxprice += 100
-            next_page = "https://www.openrent.co.uk/properties-to-rent/manchester?term=Manchester" + "&prices_min=" + minprice + "&prices_max=" + maxprice
-            yield response.follow(next_page, callback=self.parse)
+              
+            yield home_data
      

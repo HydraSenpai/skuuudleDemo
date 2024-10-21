@@ -81,7 +81,7 @@ class BookscraperPipeline:
 import mysql.connector
 import os
 
-class SaveToMySQLPipeline:
+class SaveToMySQLPipelineBooks:
 
     def __init__(self):
         self.conn = mysql.connector.connect(
