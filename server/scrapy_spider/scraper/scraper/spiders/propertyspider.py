@@ -5,7 +5,23 @@ import json
 class PropertySpider(scrapy.Spider):
     name = "propertyspider"
     allowed_domains = ["www.onthemarket.com"]
-    start_urls = ["https://www.onthemarket.com/for-sale/property/glasgow/?view=map-list"]
+    
+    def __init__(self, location=None, *args, **kwargs):
+        super(PropertySpider, self).__init__(*args, **kwargs)
+        self.location = location
+        
+    # start_urls = ["https://www.onthemarket.com/for-sale/property/glasgow/?view=map-list"]
+    
+    def start_requests(self):
+        # Build the start URL based on the location parameter
+        if self.location:
+            # Format the start URL to include the location provided
+            start_url = f"https://www.onthemarket.com/for-sale/property/{self.location}/?view=map-list"
+        else:
+            # Fallback to a default location if none is provided
+            start_url = "https://www.onthemarket.com/for-sale/property/manchester/?view=map-list"
+
+        yield scrapy.Request(url=start_url, callback=self.parse)
 
     def parse(self, response):
         properties = response.xpath('//script[@id="__NEXT_DATA__"]/text()').get()

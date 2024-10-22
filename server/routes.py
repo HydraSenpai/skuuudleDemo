@@ -23,11 +23,16 @@ def register_routes(app, db):
         #     entry_point([1])
         # except ModuleNotFoundError:
         #     print('scraper not found')
+        
+        user_input = request.json.get('location')
+        
+        # Change directory to one that runs spider
         cwd = (os.getcwd())
         os.chdir('scrapy_spider/scraper')
     
         try:
-            output = subprocess.check_output(['scrapy', 'crawl', 'propertyspider'], stderr=subprocess.STDOUT)
+            # run spider
+            output = subprocess.check_output(['scrapy', 'crawl', 'propertyspider', '-a', f'location={user_input}'], stderr=subprocess.STDOUT)
             os.chdir(cwd)
             return {'message': "scraped webpage successfully"}
         except subprocess.CalledProcessError as e:
