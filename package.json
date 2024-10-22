@@ -1,0 +1,25 @@
+{
+  "name": "skuuudle",
+  "version": "1.0.0",
+  "description": "**Real Estate Listings Scraper and Analysis Dashboard**",
+  "main": "index.js",
+  "scripts": {
+    "server": "cd ./server && flask --app run.py run",
+    "client": "npm start --prefix client",
+    "start": "concurrently --kill-others-on-fail \"npm run server\" \" npm run client\""
+  },
+  "dependencies": {
+    "concurrent": "^0.3.2",
+    "concurrently": "^8.2.2"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/HydraSenpai/skuuudleDemo.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/HydraSenpai/skuuudleDemo/issues"
+  },
+  "homepage": "https://github.com/HydraSenpai/skuuudleDemo#readme"
+}

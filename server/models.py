@@ -20,6 +20,39 @@ class Book(db.Model):
     def __repr__(self):
         return f'Book with title {self.title}'
     
+class Property(db.Model):
+    __tablename__= 'properties'
+    
+    id = db.Column(db.Integer, primary_key=True)
+    property_title = db.Column(db.Text)
+    price = db.Column(db.Integer)
+    address = db.Column(db.Text)
+    bed_count = db.Column(db.Integer)
+    property_type = db.Column(db.Text)
+    longitude = db.Column(db.Integer)
+    latitude = db.Column(db.Integer)
+    agent_name = db.Column(db.Text)
+    agent_phone = db.Column(db.Text)
+    image_link = db.Column(db.Text)
+    
+    def __repr__(self):
+        return f'Property with title {self.property_title}'
+    
+    def to_dict(self):
+        return {
+            'id': self.id,
+            'property_title': self.property_title,
+            'price': self.price,
+            'address': self.address,
+            'bed_count': self.bed_count,
+            'property_type': self.property_type,
+            'longitude': self.longitude,
+            'latitude': self.latitude,
+            'agent_name': self.agent_name,
+            'agent_phone': self.agent_phone,
+            'image_link': self.image_link
+        }
+    
     
     
     

@@ -2,3 +2,6 @@ server/venv/
 server/scrapy_spider/scraper/scraper/settings.py
 client/node_modules
 client/build
+node_modules/
+/node_modules
+./node_modules
