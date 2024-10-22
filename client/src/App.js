@@ -1,7 +1,9 @@
 import Home from './pages/Home';
 import Data from './pages/Data';
+
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import React, { useState, useEffect } from 'react';
+import Scrape from './pages/Scrape';
 
 function App() {
   const [properties, setProperties] = useState([]);
@@ -33,6 +35,10 @@ function App() {
           <Route
             path='/data'
             element={<Data properties={properties} loading={loading} />}
+          />
+          <Route
+            path='/scrape'
+            element={<Scrape properties={properties} loading={loading} />}
           />
         </Routes>
       </Router>

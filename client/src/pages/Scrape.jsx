@@ -1,36 +1,20 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 import Navbar from '../components/Navbar';
 
-function Data({ properties, loading }) {
-  if (loading) {
-    return (
-      <div
-        style={{
-          height: '100vh',
-          margin: 0,
-          display: 'flex',
-          justifyContent: 'center',
-          alignItems: 'center',
-        }}
-      >
-        <div className='loading loading-center-horizontal'></div>
-      </div>
-    );
-  }
-
+function Scrape() {
   return (
     <Wrapper>
       <div className='content'>
         <h1 className='title'>onthemarket.co.uk Scraper</h1>
         <Navbar />
-        <h4 style={{ paddingBottom: '1em' }}>Analysis...</h4>
+        <h4 style={{ paddingBottom: '1em' }}>New Query</h4>
       </div>
     </Wrapper>
   );
 }
 
-export default Data;
+export default Scrape;
 
 const Wrapper = styled.div`
   margin-top: 1em;

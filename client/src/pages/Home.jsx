@@ -24,30 +24,36 @@ function Home({ properties, loading }) {
       <div className='content'>
         <h1 className='title'>onthemarket.co.uk Scraper</h1>
         <Navbar />
+        <h4 style={{ paddingBottom: '1em' }}>Scraped Items...</h4>
         {properties && (
           <ul className='cards'>
             {properties
               .filter((property) => property.price > 0)
               .map((property) => (
-                <div className='card'>
-                  <li key={property.id}>
-                    <img
-                      src={property.image_link}
-                      alt={property.property_title}
-                      className='image'
-                    />
-                    <div className='info'>
-                      <h5>{property.property_title}</h5>
+                <li key={property.id} className='card'>
+                  <img
+                    src={property.image_link}
+                    alt={property.property_title}
+                    className='image'
+                  />
+                  <div className='info'>
+                    <h5>{property.property_title}</h5>
+                    <div className='subinfo'>
                       <p>Price: £{property.price}</p>
                       <p>Address: {property.address}</p>
+                      <p>Property Type: {property.property_type}</p>
                       <p>Beds: {property.bed_count}</p>
+                      <p>
+                        Location: longitude:{property.longitude}, latitude:
+                        {property.latitude}
+                      </p>
                       <p>
                         Agent: {property.agent_name} (Phone:{' '}
                         {property.agent_phone})
                       </p>
                     </div>
-                  </li>
-                </div>
+                  </div>
+                </li>
               ))}
           </ul>
         )}
@@ -72,9 +78,10 @@ const Wrapper = styled.div`
     margin: 0.5em;
   }
   .cards {
-    display: grid;
-    grid-template-columns: repeat(3, 400px); /* 3 equal-width columns */
-    gap: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 1em;
   }
   .card {
     background-color: white;
@@ -82,7 +89,7 @@ const Wrapper = styled.div`
     border-radius: var(--borderRadius);
     transition: var(--transition);
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     justify-content: start;
   }
   .card:hover {
@@ -93,13 +100,20 @@ const Wrapper = styled.div`
     margin: 0;
   }
   .image {
-    width: 100%;
+    width: 500px;
     height: 300px;
     object-fit: cover;
     border-radius: var(--borderRadius);
   }
   .info {
-    margin: 1em;
+    margin: 2em 1em;
     text-align: left;
+    display: flex;
+    flex-direction: column;
+    gap: 1em;
+  }
+  .subinfo {
+    display: flex;
+    flex-direction: column;
   }
 `;

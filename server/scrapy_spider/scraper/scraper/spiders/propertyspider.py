@@ -5,7 +5,7 @@ import json
 class PropertySpider(scrapy.Spider):
     name = "propertyspider"
     allowed_domains = ["www.onthemarket.com"]
-    start_urls = ["https://www.onthemarket.com/for-sale/property/manchester/?view=map-list"]
+    start_urls = ["https://www.onthemarket.com/for-sale/property/glasgow/?view=map-list"]
 
     def parse(self, response):
         properties = response.xpath('//script[@id="__NEXT_DATA__"]/text()').get()

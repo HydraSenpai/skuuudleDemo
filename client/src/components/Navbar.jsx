@@ -11,6 +11,9 @@ function Navbar() {
       <Link to='/data' className='btn'>
         Analysis
       </Link>
+      <Link to='/scrape' className='btn'>
+        New Scrape Query
+      </Link>
     </Wrapper>
   );
 }
