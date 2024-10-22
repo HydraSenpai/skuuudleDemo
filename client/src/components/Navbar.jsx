@@ -6,13 +6,13 @@ function Navbar() {
   return (
     <Wrapper>
       <Link to='/' className='btn'>
-        Data
+        All Data
       </Link>
       <Link to='/data' className='btn'>
         Analysis
       </Link>
       <Link to='/scrape' className='btn'>
-        New Scrape Query
+        Location Query
       </Link>
     </Wrapper>
   );

@@ -13,6 +13,9 @@ class PropertySpider(scrapy.Spider):
     # start_urls = ["https://www.onthemarket.com/for-sale/property/glasgow/?view=map-list"]
     
     def start_requests(self):
+        
+        print("++++++++++++++++++++++++++++++++++++++++++++++")
+        print(self.location)
         # Build the start URL based on the location parameter
         if self.location:
             # Format the start URL to include the location provided

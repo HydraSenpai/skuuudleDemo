@@ -13,6 +13,18 @@ def register_routes(app, db):
         properties = Property.query.all()
         properties_dict = [property.to_dict() for property in properties]  # Convert each object to a dictionary
         return jsonify(properties_dict)
+    
+    @app.route('/location')
+    def get_location():
+        
+        location = request.args.get('location')
+        
+        if not location:
+            return jsonify({'error': 'Location parameter is required'}), 400
+        
+        properties = Property.query.filter(Property.address.ilike(f'%{location}%')).all()
+        properties_dict = [property.to_dict() for property in properties]  # Convert each object to a dictionary
+        return jsonify(properties_dict)
 
 
     @app.route('/scrape')

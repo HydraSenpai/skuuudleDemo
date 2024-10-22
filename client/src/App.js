@@ -38,7 +38,14 @@ function App() {
           />
           <Route
             path='/scrape'
-            element={<Scrape properties={properties} loading={loading} />}
+            element={
+              <Scrape
+                properties={properties}
+                loading={loading}
+                setLoading={setLoading}
+                setProperties={setProperties}
+              />
+            }
           />
         </Routes>
       </Router>
