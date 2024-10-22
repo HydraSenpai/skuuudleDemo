@@ -11,7 +11,7 @@ function Navbar() {
       <Link to='/data' className='btn'>
         Analysis
       </Link>
-      <Link to='/scrape' className='btn'>
+      <Link to='/query' className='btn'>
         Location Query
       </Link>
     </Wrapper>

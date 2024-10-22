@@ -37,7 +37,7 @@ function App() {
             element={<Data properties={properties} loading={loading} />}
           />
           <Route
-            path='/scrape'
+            path='/query'
             element={
               <Scrape
                 properties={properties}
