@@ -1,4 +1,5 @@
 import Home from './pages/Home';
+import Data from './pages/Data';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import React, { useState, useEffect } from 'react';
 
@@ -22,11 +23,20 @@ function App() {
   }, []);
 
   return (
-    <Router>
-      <Routes>
-        <Route path='/' element={<Home properties={properties} />} />
-      </Routes>
-    </Router>
+    <>
+      <Router>
+        <Routes>
+          <Route
+            path='/'
+            element={<Home properties={properties} loading={loading} />}
+          />
+          <Route
+            path='/data'
+            element={<Data properties={properties} loading={loading} />}
+          />
+        </Routes>
+      </Router>
+    </>
   );
 }
 
