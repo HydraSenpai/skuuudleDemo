@@ -32,10 +32,10 @@ function App() {
             path='/'
             element={<Home properties={properties} loading={loading} />}
           />
-          <Route
+          {/* <Route
             path='/data'
             element={<Data properties={properties} loading={loading} />}
-          />
+          /> */}
           <Route
             path='/query'
             element={
